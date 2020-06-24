@@ -30,6 +30,9 @@
 /public/assets
 .byebug_history
 
+# Ignore storage of dev database
+/postgres-data
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 

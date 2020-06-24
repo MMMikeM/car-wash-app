@@ -12,3 +12,10 @@ make setup
 ```bash
 make run
 ```
+
+## Stopping the application
+```bash
+make stop
+```
+
+Please check the other the Makefile for other commands
