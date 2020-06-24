@@ -1,3 +1,5 @@
+default: test
+
 setup: build bundle db-setup
 
 build:
@@ -12,13 +14,19 @@ dev:
 console:
 	docker-compose run --rm web rails c
 
-db-setup:
+db-setup: db-create db-migrate db-seed
+
+db-create:
 	docker-compose run --rm web bundle exec rake db:create
+
+db-migrate:
 	docker-compose run --rm web bundle exec rake db:migrate
+
+db-seed:
 	docker-compose run --rm web bundle exec rake db:seed
 
 run:
-	docker-compose up -d
+	docker-compose up
 
 stop:
 	docker-compose down
