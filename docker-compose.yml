@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  web:
+    build:
+      context: .
+      target: dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ".:/usr/src/app"
+      - bundle:/bundle
+      - /usr/src/app/tmp
+      - /usr/src/app/log
+      - /usr/src/app/storage
+    command: ["./bin/start_dev_server"]
+    env_file:
+      - .env
+    depends_on:
+      - db
+    tty: true
+  db:
+    image: postgres:9.6
+    environment:
+      POSTGRES_PASSWORD: db_password
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+
+volumes:
+  bundle:
