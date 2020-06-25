@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class SystemUsersController < ApplicationController
   def index
     @users = User.all
   end
@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    redirect_to users_index_path
+    redirect_to system_users_path
   end
 
   def create
@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
     if @user.valid?
       @user.save
-      redirect_to users_path
+      redirect_to system_users_path
     else
       render :new
     end
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update(permitted_params)
-      redirect_to users_path
+      redirect_to system_users_path
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
 
-    redirect_to users_path
+    redirect_to system_users_path
   end
 
   private
