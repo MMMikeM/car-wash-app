@@ -10,8 +10,12 @@
   </head>
 
   <body>
-    <%= link_to "Wash Types", wash_types_path %>
-    <%= link_to "Users", system_users_path %>
+    <% if user_signed_in? %>
+      <%= link_to "Customers", customers_path %>
+      <%= link_to "Wash Types", wash_types_path %>
+      <%= link_to "Users", users_path %>
+      <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+    <% end %>
     <br />
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>

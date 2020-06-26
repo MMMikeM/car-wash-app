@@ -1,0 +1,19 @@
+<p><%= @customer.email %></p>
+<p>Current Points: <%= @customer.current_points %></p>
+<h2>Washes</h2>
+<table>
+  <thead>
+    <th>Date</th>
+    <th>Wash type</th>
+    <th>Points Earned</th>
+  </thead>
+  <tbody>
+    <% @customer.washes.order(:created_at).reverse.each do |wash| %>
+      <tr>
+        <td><%= wash.created_at.strftime("%A, %d %b %Y %H:%M")%></td>
+        <td><%= wash.wash_type.name%></td>
+        <td><%= wash.wash_type.points%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

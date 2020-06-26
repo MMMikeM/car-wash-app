@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2020_06_24_135917) do
-=======
-ActiveRecord::Schema.define(version: 2020_06_24_105916) do
->>>>>>> cn-user-management
+ActiveRecord::Schema.define(version: 2020_06_26_093149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -29,12 +25,12 @@ ActiveRecord::Schema.define(version: 2020_06_24_105916) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
+    t.float "current_points", default: 0.0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-<<<<<<< HEAD
-  create_table "wash_types", force: :cascade do |t|
+  create_table "wash_types", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.float "cost"
     t.float "price"
@@ -43,6 +39,16 @@ ActiveRecord::Schema.define(version: 2020_06_24_105916) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-=======
->>>>>>> cn-user-management
+  create_table "washes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.boolean "free", null: false
+    t.uuid "wash_type_id", null: false
+    t.uuid "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_washes_on_user_id"
+    t.index ["wash_type_id"], name: "index_washes_on_wash_type_id"
+  end
+
+  add_foreign_key "washes", "users"
+  add_foreign_key "washes", "wash_types"
 end

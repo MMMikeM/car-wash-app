@@ -1,7 +1,0 @@
-<%= link_to "Create User", new_system_user_path %>
-<% @users.each do |user| %>
-  <p><%= user.name %></p>
-  <p><%= user.email %></p>
-  <%= link_to "Edit User", edit_system_user_path(id: user.id) %>
-  <%= link_to "Delete User", system_user_path(id: user.id), method: :delete %>
-<% end %>
