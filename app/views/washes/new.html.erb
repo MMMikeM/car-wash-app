@@ -2,7 +2,7 @@
   <p><%= message %></p>
 <% end %>
 
-<%= form_with method: "post", url: customer_washes_path(customer_id: @customer.id), local:true do |f| %>
+<%= form_with method: "post", url: branch_customer_washes_path(customer_id: @customer.id), local:true do |f| %>
   <%= f.label :wash_type %>
   <%= f.collection_select :wash_type_id, @wash_types, :id, :name %>
   <%= f.submit "Record" %>

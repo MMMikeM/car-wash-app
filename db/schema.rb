@@ -10,11 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_26_093149) do
+ActiveRecord::Schema.define(version: 2020_06_26_111447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "branches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.float "free_wash_points", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,6 +33,8 @@ ActiveRecord::Schema.define(version: 2020_06_26_093149) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
     t.float "current_points", default: 0.0
+    t.uuid "branch_id"
+    t.index ["branch_id"], name: "index_users_on_branch_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -37,6 +46,8 @@ ActiveRecord::Schema.define(version: 2020_06_26_093149) do
     t.float "points"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.uuid "branch_id"
+    t.index ["branch_id"], name: "index_wash_types_on_branch_id"
   end
 
   create_table "washes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

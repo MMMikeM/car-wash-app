@@ -19,8 +19,9 @@ create-dev-records:
 
 db-reset:
 	rm -rf postgres-data
+	rm -f db/schema.rb
 	docker-compose run --rm web bundle exec rake db:reset
-	docker-compose run --rm web bundle exec rake db:migrate
+	docker-compose run --rm web bundle exec rails db:migrate
 	docker-compose run --rm web bundle exec rake db:seed
 	docker-compose run --rm web rake create_dev_records:basic_user
 

@@ -1,0 +1,4 @@
+<% @branches.each do |branch| %>
+  <h3><%= branch.name %></h3>
+  <p><%= link_to "View", branch_path(id: branch.id) %></p>
+<% end %>

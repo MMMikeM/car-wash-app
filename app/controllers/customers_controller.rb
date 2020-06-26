@@ -2,7 +2,8 @@ class CustomersController < ApplicationController
   before_action :find_customer, only: %i{show}
 
   def index
-    @customers = User.all
+    @branch = Branch.find(params[:branch_id])
+    @customers = @branch.users
   end
 
   def show

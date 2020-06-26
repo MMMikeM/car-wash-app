@@ -1,4 +1,3 @@
-
 <table>
   <thead>
     <th>Email</th>
@@ -11,8 +10,8 @@
         <td><%= customer.email %></td>
         <td><%= customer.current_points %></td>
         <td colspan=2>
-          <%= link_to "View Customer", customer_path(id: customer.id) %>
-          <%= link_to "Record wash", new_customer_wash_path(customer_id: customer.id) %>
+          <%= link_to "View Customer", branch_customer_path(branch_id: @branch.id, id: customer.id) %>
+          <%= link_to "Record wash", new_branch_customer_wash_path(branch_id: @branch.id, customer_id: customer.id) %>
         </td>
       </tr>
     <% end %>

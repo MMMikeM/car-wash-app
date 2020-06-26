@@ -14,9 +14,16 @@ class WashesController < ApplicationController
     )
 
     if @wash.valid?
+      if @customer.current_points >= @customer.branch.free_wash_points
+        @customer.update(current_points: 0)
+        @wash.free = true
+      else
+        new_customer_points = @customer.current_points + @wash.wash_type.points
+        @customer.update(current_points: new_customer_points)
+      end
       @wash.save
-      @customer.update(current_points: @customer.current_points + @wash.wash_type.points)
-      redirect_to customers_path
+
+      redirect_to branches_path
     else
       render :new
     end

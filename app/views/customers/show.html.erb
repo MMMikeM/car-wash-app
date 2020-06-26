@@ -6,6 +6,7 @@
     <th>Date</th>
     <th>Wash type</th>
     <th>Points Earned</th>
+    <th>Free wash</th>
   </thead>
   <tbody>
     <% @customer.washes.order(:created_at).reverse.each do |wash| %>
@@ -13,6 +14,7 @@
         <td><%= wash.created_at.strftime("%A, %d %b %Y %H:%M")%></td>
         <td><%= wash.wash_type.name%></td>
         <td><%= wash.wash_type.points%></td>
+        <td><%= wash.free%></td>
       </tr>
     <% end %>
   </tbody>

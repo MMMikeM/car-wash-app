@@ -8,14 +8,17 @@ cd car-wash-app
 make setup
 ```
 
-## Running the application
+### Running the application
 ```bash
 make run
 ```
 
-## Stopping the application
+### Stopping the application
 ```bash
 make stop
 ```
+
+## Data Structure
+![](docs/car-wash-app-data.png)
 
 Please check the other the Makefile for other commands
