@@ -1,6 +1,6 @@
 default: test
 
-setup: build bundle db-setup
+setup: build bundle yarn-install db-setup
 
 build:
 	docker-compose build
@@ -14,7 +14,9 @@ dev:
 console:
 	docker-compose run --rm web rails c
 
-db-setup: db-create db-migrate db-seed
+db-setup:
+	docker-compose run --rm web bundle exec rake db:reset
+	docker-compose run --rm web bundle exec rake db:setup
 
 db-create:
 	docker-compose run --rm web bundle exec rake db:create
@@ -24,6 +26,9 @@ db-migrate:
 
 db-seed:
 	docker-compose run --rm web bundle exec rake db:seed
+
+yarn-install:
+	docker-compose run --rm web yarn install --check-files
 
 run:
 	docker-compose up
