@@ -60,6 +60,6 @@ class WashTypesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def wash_type_params
-      params.require(:wash_type).permit(:name, :cost, :price)
+      params.require(:wash_type).permit(:name, :cost, :price, :points)
     end
 end

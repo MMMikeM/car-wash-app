@@ -4,6 +4,7 @@ class CreateWashTypes < ActiveRecord::Migration[6.0]
       t.string :name
       t.float :cost
       t.float :price
+      t.float :points
 
       t.timestamps
     end

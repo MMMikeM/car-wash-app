@@ -9,11 +9,11 @@ default: &default
 
 development:
   <<: *default
-  database: elephant_development
+  database: car_wash_development
 
 test:
   <<: *default
-  database: elephant_test
+  database: car_wash_test
 
 staging:
   <<: *default

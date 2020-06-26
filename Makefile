@@ -13,7 +13,7 @@ console:
 	docker-compose run --rm web rails c
 
 db-setup:
-	docker-compose run --rm web bundle exec rake db:create
+	docker-compose run --rm web bundle exec rake db:reset
 	docker-compose run --rm web bundle exec rake db:migrate
 	docker-compose run --rm web bundle exec rake db:seed
 
