@@ -1,0 +1,6 @@
+#!/bin/ash
+
+bundle exec rails db:reset
+bundle exec rails db:migrate
+bundle exec rails db:seed
+bundle exec rake create_dev_records:all
