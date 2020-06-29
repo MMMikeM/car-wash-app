@@ -19,8 +19,9 @@ COPY Gemfile.lock Gemfile.lock
 
 COPY . .
 
-FROM dev AS prod
-
 RUN bundle install
 
-CMD entrypoint.sh
+CMD ["sh", "entrypoint.sh"]
+
+
+

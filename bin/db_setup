@@ -1,4 +1,6 @@
 #!/bin/ash
+echo "Waiting for database to initialize..."
+sleep 60
 
 bundle exec rails db:reset
 bundle exec rails db:migrate

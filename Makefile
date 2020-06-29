@@ -29,6 +29,6 @@ test:
 	docker-compose run --rm web rake
 
 deploy:
-	docker build -t carwashapp:0.0.2 --target prod .
-	docker tag carwashapp:0.0.2 mmmikem/car-wash-app:0.0.2
-	docker push mmmikem/car-wash-app:0.0.2
+	docker build -t carwashapp:0.0.4 .
+	docker tag carwashapp:0.0.4 mmmikem/car-wash-app:0.0.4
+	docker push mmmikem/car-wash-app:0.0.4
