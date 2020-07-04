@@ -16,3 +16,6 @@ jobs:
       - name: Run Makefile deploy
         id: run-deploy
         run: make deploy
+        env: # Or as an environment variable
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
