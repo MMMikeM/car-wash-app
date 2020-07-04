@@ -2,7 +2,7 @@ class VehiclesController < ApiController
   private
 
   def model
-    "Vehicle".constantize
+    Vehicle
   end
 
   def permitted_params
