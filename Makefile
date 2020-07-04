@@ -29,6 +29,7 @@ test:
 	docker-compose run --rm web rake
 
 deploy:
+	docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
 	docker build -t carwashapp:0.0.5 .
 	docker tag carwashapp:0.0.5 mmmikem/car-wash-app:0.0.5
 	docker push mmmikem/car-wash-app:0.0.5
