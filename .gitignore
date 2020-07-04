@@ -6,7 +6,6 @@
 
 # Ignore bundler config.
 /.bundle
-postgres-data
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
@@ -25,3 +24,4 @@ postgres-data
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+.DS_store

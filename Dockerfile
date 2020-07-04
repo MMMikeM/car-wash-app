@@ -19,9 +19,22 @@ COPY Gemfile.lock Gemfile.lock
 
 COPY . .
 
+#######################################
+#Staging
+#######################################
+FROM dev AS staging
+
 RUN bundle install
 
 CMD ["sh", "entrypoint.sh"]
 
+#######################################
+#Production
+#######################################
+FROM dev AS prod
 
+ENV RAILS_ENV=production
 
+RUN bundle install
+
+CMD ["sh", "bin/start.sh"]
