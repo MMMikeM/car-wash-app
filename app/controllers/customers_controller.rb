@@ -2,7 +2,7 @@ class CustomersController < ApiController
   private
 
   def model
-    "User".constantize
+    User
   end
 
   def permitted_params

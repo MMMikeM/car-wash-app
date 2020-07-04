@@ -1,29 +1,24 @@
 class ApiController < ActionController::API
+  around_action :with_authorized_instance, only: %i(show update destroy)
+
   def index
-    all_instances = model.all
-    render json: all_instances
+    headers['X-Instance-Total'] = instances.count
+    render json: paginated_instances
   end
 
   def show
-    instance = model.find(params[:id])
-
     render json: instance
   end
 
   def create
-    instance = model.new(permitted_params)
-
-    if instance.valid?
-      instance.save
-      render json: instance
+    if new_instance.save
+      render json: new_instance
     else
-      render json: { errors: instance.errors.full_messages }
+      render json: { errors: new_instance.errors.full_messages }
     end
   end
 
   def update
-    instance = model.find(params[:id])
-
     if instance.update(permitted_params)
       render json: instance
     else
@@ -32,12 +27,43 @@ class ApiController < ActionController::API
   end
 
   def destroy
-    instance = model.find(params[:id])
-
     if instance.destroy
       render json: { message: "#{model} deleted successfully" }
     else
       render json: { errors: instance.errors.full_messages }
     end
+  end
+
+  private
+
+  def instances
+    @instances ||= model.all
+  end
+
+  def paginated_instances
+    @paginated_instances ||= instances.limit(per_page).offset(offset)
+  end
+
+  def new_instance
+    @new_instance ||= model.new(permitted_params)
+  end
+
+  def with_authorized_instance
+    @instance ||= model.find(params[:id])
+    yield
+  rescue ActiveRecord::NotFoundError
+    render json: { message: "#{params[:id]} was not found."}, status: :not_found
+  end
+
+  def instance
+    @instance
+  end
+
+  def model
+    raise "You haven't defined a model for #{self.class}!"
+  end
+
+  def permitted_params
+    raise "You haven't defined permitted params for #{self.class}"
   end
 end
