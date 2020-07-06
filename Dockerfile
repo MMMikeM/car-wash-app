@@ -24,6 +24,8 @@ COPY . .
 #######################################
 FROM dev AS staging
 
+ENV RAILS_ENV=production
+
 RUN bundle install
 
 CMD ["sh", "entrypoint.sh"]
@@ -33,8 +35,7 @@ CMD ["sh", "entrypoint.sh"]
 #######################################
 FROM dev AS prod
 
-ENV RAILS_ENV=production
 
-RUN bundle install
+COPY --from=staging /bundle /bundle
 
 CMD ["sh", "bin/start.sh"]
