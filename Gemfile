@@ -11,9 +11,9 @@ gem 'rspec-rails', '~> 4.0', '>= 4.0.1'
 gem 'devise', '~> 4.7', '>= 4.7.2'
 gem 'active_model_serializers', '~> 0.10.10'
 gem 'pundit'
+gem 'rack-cors'
 
 # gem 'redis', '~> 4.0'
-# gem 'rack-cors'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

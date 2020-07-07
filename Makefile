@@ -14,9 +14,16 @@ db-setup:
 	docker-compose down
 	docker-compose run --rm web ./bin/db_setup
 
-run:
+db-migrate:
 	docker-compose up -d
-	docker-compose logs -f web
+	docker-compose run --rm web rails db:migrate
+
+db-seed:
+	docker-compose up -d
+	docker-compose run --rm web rails db:seed
+
+run:
+	docker-compose run --service-ports --rm web
 
 stop:
 	docker-compose down
@@ -29,7 +36,13 @@ test:
 	docker-compose run --rm web rake
 
 deploy:
+	docker build --target staging -t carwashapp:staging .
+	docker tag carwashapp:staging mmmikem/car-wash-app:staging
+	docker push mmmikem/car-wash-app:staging
+
+image = $(cat .version)
+prod_deploy:
 	docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-	docker build -t carwashapp:0.0.5 .
-	docker tag carwashapp:0.0.5 mmmikem/car-wash-app:0.0.5
-	docker push mmmikem/car-wash-app:0.0.5
+	docker build --target staging -t $(image) .
+	docker tag $(image) mmmikem/$(image)
+	docker push mmmikem/$(image)

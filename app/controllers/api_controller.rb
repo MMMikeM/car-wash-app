@@ -51,7 +51,7 @@ class ApiController < ActionController::API
   def with_authorized_instance
     @instance ||= model.find(params[:id])
     yield
-  rescue ActiveRecord::NotFoundError
+  rescue ActiveRecord::RecordNotFound
     render json: { message: "#{params[:id]} was not found."}, status: :not_found
   end
 
@@ -65,5 +65,25 @@ class ApiController < ActionController::API
 
   def permitted_params
     raise "You haven't defined permitted params for #{self.class}"
+  end
+
+  def per_page
+    if params[:per_page] && (params[:per_page].to_i.abs).positive?
+      @per_page = params[:per_page]
+    else
+      100
+    end
+  end
+
+  def page
+    if params[:page] && (params[:page].to_i.abs).positive?
+      @page = params[:page]
+    else
+      0
+    end
+  end
+
+  def offset
+    per_page * page
   end
 end

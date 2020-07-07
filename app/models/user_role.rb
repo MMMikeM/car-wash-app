@@ -4,5 +4,5 @@ class UserRole < ApplicationRecord
 
   validates :role_id, presence: true
   validates :user_id, presence: true
-  validates :role_id, unique: { scope: %i(user_id) }
+  validates :role_id, uniqueness: { scope: %i(user_id) }
 end

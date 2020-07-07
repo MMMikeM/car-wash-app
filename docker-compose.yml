@@ -4,9 +4,16 @@ services:
   web:
     stdin_open: true
     tty: true
-    image: "mmmikem/car-wash-app:0.0.5"
+    build:
+      context: .
+      target: dev
     ports:
-      - "3000:3000"
+      - "3001:3000"
+    command: "./bin/start_dev_server"
+    volumes:
+      - ".:/usr/src/app"
+      - bundle:/bundle
+      - /usr/src/app/tmp
     env_file:
       - .env
     depends_on:
@@ -19,4 +26,5 @@ services:
       - db:/var/lib/postgresql/data
 
 volumes:
+  bundle:
   db:
