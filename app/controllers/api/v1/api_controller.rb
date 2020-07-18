@@ -1,4 +1,5 @@
-class ApiController < ActionController::API
+class Api::V1::ApiController < ApplicationController
+  acts_as_token_authentication_handler_for User
   around_action :with_authorized_instance, only: %i(show update destroy)
 
   def index

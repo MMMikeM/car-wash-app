@@ -1,4 +1,4 @@
-class VehiclesController < ApiController
+class Api::V1::VehiclesController < Api::V1::ApiController
   private
 
   def model

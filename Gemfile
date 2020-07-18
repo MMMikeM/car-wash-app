@@ -12,6 +12,7 @@ gem 'devise', '~> 4.7', '>= 4.7.2'
 gem 'active_model_serializers', '~> 0.10.10'
 gem 'pundit'
 gem 'rack-cors'
+gem 'simple_token_authentication', '~> 1.0'
 
 # gem 'redis', '~> 4.0'
 

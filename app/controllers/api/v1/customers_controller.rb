@@ -1,4 +1,4 @@
-class CustomersController < ApiController
+class Api::V1::CustomersController < Api::V1::ApiController
   private
 
   def model

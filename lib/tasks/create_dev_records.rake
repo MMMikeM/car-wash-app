@@ -11,5 +11,6 @@ namespace :create_dev_records do
     )
 
     vehicle = Vehicle.find_or_create_by(user: user, registration_number: "AA11BBGP")
+    wash_type = WashType.find_or_create_by(name: 'Basic', cost: 10, price: 50, points: 10)
   end
 end
