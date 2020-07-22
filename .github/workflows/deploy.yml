@@ -23,7 +23,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       - name: Deploy to production
         id: production-deploy
-        if: ${{ github.ref == 'refs/head/master' }}
+        if: {{ github.ref == 'ref/head/master' }}
         run: make prod_deploy
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
