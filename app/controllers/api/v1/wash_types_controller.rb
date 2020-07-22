@@ -6,6 +6,6 @@ class Api::V1::WashTypesController < Api::V1::ApiController
   end
 
   def permitted_params
-    params.require(:wash_type).permit(:name, :price, :cost, :points)
+    params.require(:wash_type).permit(:name, :description, :price, :cost, :points)
   end
 end

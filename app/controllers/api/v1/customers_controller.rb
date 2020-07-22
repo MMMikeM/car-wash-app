@@ -5,6 +5,14 @@ class Api::V1::CustomersController < Api::V1::ApiController
       @instances = model.where("contact_number ILIKE ?", "%#{params['contact_number']}%")
     end
 
+    if params["email"]
+      @instances = model.where("email ILIKE ?", "%#{params['email']}%")
+    end
+
+    if params["name"]
+      @instances = model.where("name ILIKE ?", "%#{params['name']}%")
+    end
+
     if params["registration_number"]
       @instances = model.joins(:vehicles).where("vehicles.registration_number ILIKE ?", "%#{params['registration_number']}%")
     end
