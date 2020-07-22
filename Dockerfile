@@ -31,4 +31,4 @@ ENV RAILS_ENV=production
 
 COPY --from=staging /bundle /bundle
 
-CMD ["sh", "bin/start.sh"]
+CMD ["sh", "bin/start"]
