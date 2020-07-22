@@ -40,9 +40,9 @@ deploy:
 	docker tag carwashapp:staging mmmikem/car-wash-app:staging
 	docker push mmmikem/car-wash-app:staging
 
-image = $(cat .version)
+image = $(shell cat .version)
 prod_deploy:
-	docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-	docker build --target staging -t $(image) .
+	docker build --target prod -t $(image) .
 	docker tag $(image) mmmikem/$(image)
-	docker push mmmikem/$(image)
+	#docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+	#docker push mmmikem/${image}
