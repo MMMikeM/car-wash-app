@@ -44,5 +44,5 @@ image = $(shell cat .version)
 prod_deploy:
 	docker build --target prod -t $(image) .
 	docker tag $(image) mmmikem/$(image)
-	#docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-	#docker push mmmikem/${image}
+	docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+	docker push mmmikem/${image}
