@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
       resources :customers
       resources :wash_types
+      resources :washes, only: [:create, :destroy]
       resources :vehicles
     end
   end
