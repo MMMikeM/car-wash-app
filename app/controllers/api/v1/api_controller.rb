@@ -1,7 +1,7 @@
 class Api::V1::ApiController < ApplicationController
+  #before_action :authenticate_user!
   acts_as_token_authentication_handler_for User
   around_action :with_authorized_instance, only: %i(show update destroy)
-  before_action :authenticate_user!
 
   def index
     headers['X-Instance-Total'] = instances.count

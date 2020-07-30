@@ -1,7 +1,7 @@
 namespace :create_dev_records do
   desc "Create dev records"
   task :all => :environment do
-    user = User.find_by(email: 'admin@example.com') || User.create(
+    user = User.find_by(email: 'manager@example.com') || User.create(
       email: "admin@example.com",
       password: "password",
       password_confirmation: "password",
@@ -9,12 +9,27 @@ namespace :create_dev_records do
       contact_number: "+27110009999",
       total_points: 0
     )
+    user.roles << Role.find_by(name: 'manager')
+    user.roles << Role.find_by(name: 'salesperson')
+    user.save
+
+    user = User.find_by(email: 'dude@example.com') || User.create(
+      email: "dude@example.com",
+      password: "password",
+      password_confirmation: "password",
+      name: "Tom Jones",
+      contact_number: "+27110009999",
+      total_points: 0
+    )
+    user.roles << Role.find_by(name: 'salesperson')
+    user.save
 
     vehicle = Vehicle.find_or_create_by(user: user, registration_number: "AA11BBGP")
 
     wash_types = [
       {
         "name": "Engine Wash",
+        "cost": 10,
         "price": 75,
         "points": 0,
         "description": "",
@@ -22,6 +37,7 @@ namespace :create_dev_records do
       },
       {
         "name": "Full House Wash",
+        "cost": 10,
         "price": 120,
         "points": 10,
         "description": "Wash, Dry, Vaccuum, Tyre Polish, Disinfectant Fogging*",
@@ -29,6 +45,7 @@ namespace :create_dev_records do
       },
       {
         "name": "Full House Wash (Minivan)",
+        "cost": 10,
         "price": 160,
         "points": 10,
         "description": "Wash, Dry, Vaccuum, Tyre Polish, Disinfectant Fogging*",
@@ -36,6 +53,7 @@ namespace :create_dev_records do
       },
       {
         "name": "Carbon Treatment Stage 1",
+        "cost": 10,
         "price": 300,
         "points": 15,
         "description": "Full House + Stage Machine Polish + Protective Glaze",
@@ -43,6 +61,7 @@ namespace :create_dev_records do
       },
       {
         "name": "Carbon Treatment Stage 2",
+        "cost": 10,
         "price": 500,
         "points": 20,
         "description": "Full House + 2 Stage Machine Polish + Protective Glaze",
@@ -50,6 +69,7 @@ namespace :create_dev_records do
       },
       {
         "name": "Leather Valet",
+        "cost": 10,
         "price": 300,
         "points": 15,
         "description": "Full House + Leather Cleanse + Leather Treatment",
@@ -57,6 +77,7 @@ namespace :create_dev_records do
       },
       {
         "name": "Diamond Package ",
+        "cost": 10,
         "price": 700,
         "points": 30,
         "description": "Full House + 2 Stage Machine Polish + Protective Glaze + Leather Valet",
@@ -64,6 +85,7 @@ namespace :create_dev_records do
       },
       {
         "name": "Disinfectant Fogging",
+        "cost": 10,
         "price": 25,
         "points": 0,
         "description": "",
@@ -71,6 +93,7 @@ namespace :create_dev_records do
       },
       {
         "name": "Wash & Go",
+        "cost": 10,
         "price": 60,
         "points": 0,
         "description": "",
@@ -78,6 +101,7 @@ namespace :create_dev_records do
       },
       {
         "name": "Wash & Dry",
+        "cost": 10,
         "price": 75,
         "points": 0,
         "description": "",
@@ -86,7 +110,7 @@ namespace :create_dev_records do
     ]
 
     wash_types.each do |wash_type_json|
-      WashType.create(wash_type_json)
+      WashType.create!(wash_type_json)
     end
   end
 end

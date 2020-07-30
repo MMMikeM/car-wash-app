@@ -1,5 +1,5 @@
 class Api::V1::WashTypesController < Api::V1::ApiController
-  skip_before_action :authenticate_user!, only: [:index]
+  acts_as_token_authentication_handler_for User, except: [:index]
 
   def index
     render json: paginated_instances
