@@ -1,4 +1,8 @@
 class Api::V1::WashesController < Api::V1::ApiController
+  def index
+    
+  end
+
   private
 
   def model

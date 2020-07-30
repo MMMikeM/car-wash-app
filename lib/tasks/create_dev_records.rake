@@ -11,6 +11,82 @@ namespace :create_dev_records do
     )
 
     vehicle = Vehicle.find_or_create_by(user: user, registration_number: "AA11BBGP")
-    wash_type = WashType.find_or_create_by(name: 'Basic', cost: 10, price: 50, points: 10)
+
+    wash_types = [
+      {
+        "name": "Engine Wash",
+        "price": 75,
+        "points": 0,
+        "description": "",
+        "order": 2
+      },
+      {
+        "name": "Full House Wash",
+        "price": 120,
+        "points": 10,
+        "description": "Wash, Dry, Vaccuum, Tyre Polish, Disinfectant Fogging*",
+        "order": 4
+      },
+      {
+        "name": "Full House Wash (Minivan)",
+        "price": 160,
+        "points": 10,
+        "description": "Wash, Dry, Vaccuum, Tyre Polish, Disinfectant Fogging*",
+        "order": 4
+      },
+      {
+        "name": "Carbon Treatment Stage 1",
+        "price": 300,
+        "points": 15,
+        "description": "Full House + Stage Machine Polish + Protective Glaze",
+        "order": 5
+      },
+      {
+        "name": "Carbon Treatment Stage 2",
+        "price": 500,
+        "points": 20,
+        "description": "Full House + 2 Stage Machine Polish + Protective Glaze",
+        "order": 6
+      },
+      {
+        "name": "Leather Valet",
+        "price": 300,
+        "points": 15,
+        "description": "Full House + Leather Cleanse + Leather Treatment",
+        "order": 7
+      },
+      {
+        "name": "Diamond Package ",
+        "price": 700,
+        "points": 30,
+        "description": "Full House + 2 Stage Machine Polish + Protective Glaze + Leather Valet",
+        "order": 8
+      },
+      {
+        "name": "Disinfectant Fogging",
+        "price": 25,
+        "points": 0,
+        "description": "",
+        "order": 9
+      },
+      {
+        "name": "Wash & Go",
+        "price": 60,
+        "points": 0,
+        "description": "",
+        "order": 0
+      },
+      {
+        "name": "Wash & Dry",
+        "price": 75,
+        "points": 0,
+        "description": "",
+        "order": 1
+      }
+    ]
+
+    wash_types.each do |wash_type_json|
+      WashType.create(wash_type_json)
+    end
   end
 end
