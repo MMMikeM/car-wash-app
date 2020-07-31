@@ -1,4 +1,5 @@
 class Api::V1::ApiController < ApplicationController
+  #before_action :authenticate_user!
   acts_as_token_authentication_handler_for User
   around_action :with_authorized_instance, only: %i(show update destroy)
 
@@ -86,5 +87,13 @@ class Api::V1::ApiController < ApplicationController
 
   def offset
     per_page * page
+  end
+
+  def authenticate_user!
+    if user_signed_in?
+      super
+    else
+      render status: 401
+    end
   end
 end

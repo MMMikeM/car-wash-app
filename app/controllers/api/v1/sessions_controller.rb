@@ -8,7 +8,7 @@ class Api::V1::SessionsController < Devise::SessionsController
       render json: {
         messages: "Signed In Successfully",
         is_success: true,
-        data: {user: @user}
+        data: { user: UserSerializer.new(@user) }
       }, status: :ok
     else
       render json: {
@@ -28,7 +28,7 @@ class Api::V1::SessionsController < Devise::SessionsController
   def load_user
     @user = User.find_for_database_authentication(email: sign_in_params[:email])
     if @user
-      return @user
+      return @user.id
     else
       render json: {
         messages: "Cannot get User",

@@ -36,6 +36,7 @@ test:
 	docker-compose run --rm web rake
 
 deploy:
+	docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
 	docker build --target staging -t carwashapp:staging .
 	docker tag carwashapp:staging mmmikem/car-wash-app:staging
 	docker push mmmikem/car-wash-app:staging

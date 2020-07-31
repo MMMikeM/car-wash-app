@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_20_071145) do
+ActiveRecord::Schema.define(version: 2020_07_30_171955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -66,9 +66,21 @@ ActiveRecord::Schema.define(version: 2020_07_20_071145) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "description"
+    t.integer "order", default: 0
+  end
+
+  create_table "washes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "wash_type_id", null: false
+    t.uuid "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_washes_on_user_id"
+    t.index ["wash_type_id"], name: "index_washes_on_wash_type_id"
   end
 
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
   add_foreign_key "vehicles", "users"
+  add_foreign_key "washes", "users"
+  add_foreign_key "washes", "wash_types"
 end
