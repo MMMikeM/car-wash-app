@@ -9,13 +9,13 @@ class Api::V1::WashesController < Api::V1::ApiController
   end
 
   def add_cost_and_price_new
-    new_instance.cost = wash_type.cost * 100
-    new_instance.price = wash_type.price * 100
+    new_instance.cost = wash_type.cost
+    new_instance.price = wash_type.price
   end
 
   def add_cost_and_price
-    instance.cost = wash_type.cost * 100
-    instance.price = wash_type.price * 100
+    instance.cost = wash_type.cost
+    instance.price = wash_type.price
   end
 
   def wash_type
