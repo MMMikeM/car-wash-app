@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       resources :wash_types
       resources :washes, only: [:create, :destroy]
       resources :vehicles
+      resources :system_users
+      put '/system_users/:user_id/roles', to: "system_users#update_roles"
     end
   end
 end
