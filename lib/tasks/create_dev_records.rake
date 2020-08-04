@@ -29,32 +29,32 @@ namespace :create_dev_records do
     wash_types = [
       {
         "name": "Engine Wash",
-        "cost": 10,
-        "price": 75,
+        "cost": 1000,
+        "price": 7500,
         "points": 0,
         "description": "",
         "order": 2
       },
       {
         "name": "Full House Wash",
-        "cost": 10,
-        "price": 120,
+        "cost": 1000,
+        "price": 12000,
         "points": 10,
         "description": "Wash, Dry, Vaccuum, Tyre Polish, Disinfectant Fogging*",
         "order": 4
       },
       {
         "name": "Full House Wash (Minivan)",
-        "cost": 10,
-        "price": 160,
+        "cost": 1000,
+        "price": 16000,
         "points": 10,
         "description": "Wash, Dry, Vaccuum, Tyre Polish, Disinfectant Fogging*",
         "order": 4
       },
       {
         "name": "Carbon Treatment Stage 1",
-        "cost": 10,
-        "price": 300,
+        "cost": 1000,
+        "price": 30000,
         "points": 15,
         "description": "Full House + Stage Machine Polish + Protective Glaze",
         "order": 5
@@ -62,47 +62,47 @@ namespace :create_dev_records do
       {
         "name": "Carbon Treatment Stage 2",
         "cost": 10,
-        "price": 500,
-        "points": 20,
+        "price": 50000,
+        "points": 2000,
         "description": "Full House + 2 Stage Machine Polish + Protective Glaze",
         "order": 6
       },
       {
         "name": "Leather Valet",
-        "cost": 10,
-        "price": 300,
+        "cost": 1000,
+        "price": 30000,
         "points": 15,
         "description": "Full House + Leather Cleanse + Leather Treatment",
         "order": 7
       },
       {
         "name": "Diamond Package ",
-        "cost": 10,
-        "price": 700,
+        "cost": 1000,
+        "price": 70000,
         "points": 30,
         "description": "Full House + 2 Stage Machine Polish + Protective Glaze + Leather Valet",
         "order": 8
       },
       {
         "name": "Disinfectant Fogging",
-        "cost": 10,
-        "price": 25,
+        "cost": 1000,
+        "price": 2500,
         "points": 0,
         "description": "",
         "order": 9
       },
       {
         "name": "Wash & Go",
-        "cost": 10,
-        "price": 60,
+        "cost": 1000,
+        "price": 6000,
         "points": 0,
         "description": "",
         "order": 0
       },
       {
         "name": "Wash & Dry",
-        "cost": 10,
-        "price": 75,
+        "cost": 1000,
+        "price": 7500,
         "points": 0,
         "description": "",
         "order": 1
