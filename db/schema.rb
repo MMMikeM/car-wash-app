@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_30_171955) do
+ActiveRecord::Schema.define(version: 2020_08_04_113846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 2020_07_30_171955) do
     t.uuid "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "cost", default: 0
+    t.bigint "price", default: 0
     t.index ["user_id"], name: "index_washes_on_user_id"
     t.index ["wash_type_id"], name: "index_washes_on_wash_type_id"
   end
