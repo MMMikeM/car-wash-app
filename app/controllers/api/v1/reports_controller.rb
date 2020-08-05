@@ -9,7 +9,7 @@ class Api::V1::ReportsController < Api::V1::ApiController
     Wash
       .joins(:wash_type)
       .where("washes.created_at >= ? AND washes.created_at <= ?", permitted_params[:start_date].to_date.beginning_of_day, permitted_params[:end_date].to_date.end_of_day)
-      .select("wash_types.id, wash_types.name, (SUM(wash_types.cost) / 100) as cost, (SUM(wash_types.price) / 100) as price, count(washes.*) as wash_count")
+      .select("wash_types.id, wash_types.name, (SUM(wash_types.cost)) as total_cost, (SUM(wash_types.price)) as total_price, count(washes.*) as wash_count")
       .group("wash_types.name, wash_types.id")
   end
 
