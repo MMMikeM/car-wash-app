@@ -9,4 +9,22 @@ class User < ApplicationRecord
   has_many :roles, through: :user_roles
   has_many :washes
   accepts_nested_attributes_for :vehicles
+
+  after_create :send_customer_sms
+  after_create :add_customer_role
+
+  def add_customer_role
+    self.roles << Role.find_by_name('customer')
+    self.save
+  end
+
+  def send_customer_sms
+    if Rails.env.production?
+      SendSmsService.new(:new_customer).send(contact_number)
+    else
+      logger.info("##############################")
+      logger.info("Sending new customer message to #{contact_number}")
+      logger.info("##############################")
+    end
+  end
 end
