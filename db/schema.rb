@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_04_113846) do
+ActiveRecord::Schema.define(version: 2020_08_10_092852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2020_08_04_113846) do
     t.string "contact_number"
     t.integer "total_points", default: 0
     t.string "authentication_token", limit: 30
+    t.boolean "hidden", default: false
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 2020_08_04_113846) do
     t.uuid "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "hidden", default: false
     t.index ["user_id"], name: "index_vehicles_on_user_id"
   end
 
@@ -67,6 +69,8 @@ ActiveRecord::Schema.define(version: 2020_08_04_113846) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "description"
     t.integer "order", default: 0
+    t.boolean "free", default: false
+    t.boolean "hidden", default: false
   end
 
   create_table "washes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -76,6 +80,7 @@ ActiveRecord::Schema.define(version: 2020_08_04_113846) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "cost", default: 0
     t.bigint "price", default: 0
+    t.boolean "hidden", default: false
     t.index ["user_id"], name: "index_washes_on_user_id"
     t.index ["wash_type_id"], name: "index_washes_on_wash_type_id"
   end

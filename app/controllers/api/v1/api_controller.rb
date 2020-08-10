@@ -29,7 +29,7 @@ class Api::V1::ApiController < ApplicationController
   end
 
   def destroy
-    if instance.destroy
+    if instance.update(hidden: true)
       render json: { message: "#{model} deleted successfully" }
     else
       render json: { errors: instance.errors.full_messages }
@@ -39,7 +39,7 @@ class Api::V1::ApiController < ApplicationController
   private
 
   def instances
-    @instances ||= model.all
+    @instances ||= model.where(hidden: false)
   end
 
   def paginated_instances

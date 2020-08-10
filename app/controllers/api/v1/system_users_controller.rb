@@ -11,7 +11,7 @@ class Api::V1::SystemUsersController < Api::V1::ApiController
   private
 
   def model
-    User.joins(:roles).where('roles.name IN (?)', ['manager', 'salesperson'])
+    User.joins(:roles).where('roles.name IN (?)', ['manager', 'salesperson']).distinct
   end
 
   def user

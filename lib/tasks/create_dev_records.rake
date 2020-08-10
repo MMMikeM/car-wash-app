@@ -106,6 +106,14 @@ namespace :create_dev_records do
         "points": 0,
         "description": "",
         "order": 1
+      },
+      {
+        "name": "Free Wash",
+        "cost": 1000,
+        "price": 0,
+        "points": -100,
+        "description": "",
+        "order": 10
       }
     ]
 
