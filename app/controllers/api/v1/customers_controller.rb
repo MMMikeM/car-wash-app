@@ -23,7 +23,7 @@ class Api::V1::CustomersController < Api::V1::ApiController
   private
 
   def model
-    Role.find_by_name('customer').users
+    Role.find_by_name('customer').users.distinct
   end
 
   def permitted_params
