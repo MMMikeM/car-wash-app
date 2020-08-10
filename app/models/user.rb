@@ -20,7 +20,7 @@ class User < ApplicationRecord
 
   def send_customer_sms
     if Rails.env.production?
-      SendSmsService.new(:new_customer).send(contact_number)
+      #SendSmsService.new(:new_customer).send(contact_number)
     else
       logger.info("##############################")
       logger.info("Sending new customer message to #{contact_number}")
