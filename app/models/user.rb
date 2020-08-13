@@ -20,7 +20,9 @@ class User < ApplicationRecord
 
   def send_customer_sms
     if Rails.env.production?
-      #SendSmsService.new(:new_customer).send(contact_number)
+      if roles.first.name == "customer" && roles.size == 1
+        ZoomConnectSmsClient.new.send(self.contact_number, ENV['NEW_CUSTOMER_MESSAGE'])
+      end
     else
       logger.info("##############################")
       logger.info("Sending new customer message to #{contact_number}")

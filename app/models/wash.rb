@@ -8,6 +8,10 @@ class Wash < ApplicationRecord
   def increase_user_points
     user.total_points += wash_type.points
     user.save
+
+    if user.total_points >= ENV['SMS_POINTS_NOTIFY'].to_i
+      ZoomConnectSmsClient.new.send(user.contact_number, ENV['SMS_POINTS_MESSAGE'])
+    end
   end
 
   def decrease_user_points
