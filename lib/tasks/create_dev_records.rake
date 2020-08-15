@@ -113,7 +113,8 @@ namespace :create_dev_records do
         "price": 0,
         "points": -100,
         "description": "",
-        "order": 10
+        "order": 10,
+        "free": true
       }
     ]
 
