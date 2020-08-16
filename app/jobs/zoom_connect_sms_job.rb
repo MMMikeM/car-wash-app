@@ -1,8 +1,9 @@
 # Zoomconnect API Client
 # This client is built to interact with zoom connect and send smses
 
-class ZoomConnectSmsClient
+class ZoomConnectSmsJob
   include SuckerPunch::Job
+
   PROVIDER_URL=ENV['ZOOM_CLIENT_URL']
 
   def perform(msisdn, message)
