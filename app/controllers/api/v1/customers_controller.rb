@@ -1,6 +1,6 @@
 class Api::V1::CustomersController < Api::V1::ApiController
-  skip_around_action :with_authorized_instance, only: :update_password
-  acts_as_token_authentication_handler_for User, except: :update_password
+  skip_around_action :with_authorized_instance, only: [:create, :update_password]
+  acts_as_token_authentication_handler_for User, except: [:create, :update_password]
   include ActionController::MimeResponds
   before_action :add_email_to_customer, only: :create
 
@@ -64,7 +64,7 @@ class Api::V1::CustomersController < Api::V1::ApiController
   end
 
   def password
-    params[:password].present? ? params[:password] : SecureRandom.uuid
+    @password ||= params[:password].present? ? params[:password] : SecureRandom.uuid
   end
 
   def permitted_params
