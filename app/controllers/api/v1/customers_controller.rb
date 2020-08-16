@@ -41,6 +41,7 @@ class Api::V1::CustomersController < Api::V1::ApiController
   private
 
   def add_email_to_customer
+    #if !params[:email].present? ||params[:email].empty?
     if !params[:email].present?
       new_instance.email = "#{SecureRandom.uuid}@carboncarwash.co.za"
     end
@@ -69,7 +70,7 @@ class Api::V1::CustomersController < Api::V1::ApiController
 
   def permitted_params
     params.require(:customer)
-          .permit(:name, :contact_number, :opted_for_marketing, vehicles_attributes: [:registration_number])
+          .permit(:name, :email, :contact_number, :opted_for_marketing, vehicles_attributes: [:registration_number])
           .merge({
             :password => password,
             :password_confirmation => password
