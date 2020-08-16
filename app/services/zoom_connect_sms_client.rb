@@ -2,9 +2,10 @@
 # This client is built to interact with zoom connect and send smses
 
 class ZoomConnectSmsClient
+  include SuckerPunch::Job
   PROVIDER_URL=ENV['ZOOM_CLIENT_URL']
 
-  def send(msisdn, message)
+  def perform(msisdn, message)
     @msisdn = msisdn
     @message = message
     @msisdn[0] = "+27"
