@@ -10,7 +10,7 @@ class Wash < ApplicationRecord
     user.save
 
     if user.total_points >= ENV['SMS_POINTS_NOTIFY'].to_i
-      ZoomConnectSmsJob.perform_async(user.contact_number, ENV['SMS_POINTS_MESSAGE'])
+      ZoomConnectSmsJob.perform_async(user.contact_number.dup, ENV['SMS_POINTS_MESSAGE'])
     end
   end
 
