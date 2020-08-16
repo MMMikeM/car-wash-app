@@ -6,7 +6,7 @@ namespace :create_dev_records do
       password: "password",
       password_confirmation: "password",
       name: "Tom Jones",
-      contact_number: "+27110009999",
+      contact_number: "0110009999",
       total_points: 0
     )
     user.roles << Role.find_by(name: 'manager')
@@ -18,7 +18,7 @@ namespace :create_dev_records do
       password: "password",
       password_confirmation: "password",
       name: "Tom Jones",
-      contact_number: "+27110009999",
+      contact_number: "0110009998",
       total_points: 0
     )
     user.roles << Role.find_by(name: 'salesperson')
