@@ -5,8 +5,9 @@ class ZoomConnectSmsClient
   PROVIDER_URL=ENV['ZOOM_CLIENT_URL']
 
   def send(msisdn, message)
-    @msisdn = "+#{msisdn}"
+    @msisdn = msisdn
     @message = message
+    @msisdn[0] = "+27"
     HTTParty.post(PROVIDER_URL, body: request_body.to_json, basic_auth: auth, headers: { 'Content-Type' => 'application/json' })
   end
 
