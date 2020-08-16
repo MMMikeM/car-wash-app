@@ -31,6 +31,15 @@ class Api::V1::CustomersController < Api::V1::ApiController
     end
   end
 
+  def reset_password
+    user = User.find(params[:contact_number])
+
+    if user
+      message = "You can reset your password by clicking on the following link: #{ENV['WEBSITE_URL']}/#{user.id}/reset_password"
+      ZoomConnectSmsJob.perform_async(user.contact_number, message)
+    end
+  end
+
   def update_password
     User.find(params[:customer_id])
         .update(
