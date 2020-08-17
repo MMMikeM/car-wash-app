@@ -6,7 +6,11 @@ Rails.application.routes.draw do
         post "sign_in", to: "sessions#create"
       end
 
-      resources :customers
+      post "customers/reset_password", to: "customers#reset_password"
+      resources :customers do
+        put "update_password", to: "customers#update_password"
+      end
+
       resources :wash_types
       resources :washes, only: [:create, :destroy]
       resources :vehicles

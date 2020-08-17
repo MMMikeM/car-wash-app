@@ -22,11 +22,11 @@ class Api::V1::SessionsController < Devise::SessionsController
   private
 
   def sign_in_params
-    params.permit(:email, :password)
+    params.permit(:contact_number, :password)
   end
 
   def load_user
-    @user = User.find_for_database_authentication(email: sign_in_params[:email])
+    @user = User.find_for_database_authentication(contact_number: sign_in_params[:contact_number])
     if @user
       return @user.id
     else

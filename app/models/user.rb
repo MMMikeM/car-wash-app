@@ -19,12 +19,6 @@ class User < ApplicationRecord
   end
 
   def send_customer_sms
-    if Rails.env.production?
-      #SendSmsService.new(:new_customer).send(contact_number)
-    else
-      logger.info("##############################")
-      logger.info("Sending new customer message to #{contact_number}")
-      logger.info("##############################")
-    end
+    ZoomConnectSmsJob.perform_async(self.contact_number.dup, ENV['NEW_CUSTOMER_MESSAGE'])
   end
 end
