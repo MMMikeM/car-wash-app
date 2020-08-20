@@ -35,7 +35,6 @@ class Api::V1::CustomersController < Api::V1::ApiController
     user = User.find_by(contact_number: params[:contact_number])
 
     if user
-      message = "You can reset your password by clicking on the following link: #{ENV['WEBSITE_URL']}/#{user.id}/password_reset"
       message = "#{ENV['PASSWORD_RESET_MESSAGE']} #{ENV['WEBSITE_URL']}/#{user.id}/password_reset"
       ZoomConnectSmsJob.perform_async(user.contact_number, message)
     end
@@ -80,7 +79,6 @@ class Api::V1::CustomersController < Api::V1::ApiController
 
   def permitted_params
     params.require(:customer)
-          .permit(:name, :email, :contact_number, :opted_for_marketing, vehicles_attributes: [:registration_number])
           .permit(:name, :email, :contact_number, :opted_for_marketing, :total_points, vehicles_attributes: [:registration_number])
           .merge({
             :password => password,
