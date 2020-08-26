@@ -50,7 +50,6 @@ class Api::V1::CustomersController < Api::V1::ApiController
   private
 
   def add_email_to_customer
-    #if !params[:email].present? ||params[:email].empty?
     if !params[:email].present?
       new_instance.email = "#{SecureRandom.uuid}@carboncarwash.co.za"
     end
