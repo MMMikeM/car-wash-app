@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :email, :name, :contact_number, :roles, :authentication_token, :total_points, :user_washes
+  attributes :id, :email, :name, :contact_number, :roles, :authentication_token, :total_points, :washes
 
   has_many :vehicles
 
@@ -7,7 +7,7 @@ class UserSerializer < ActiveModel::Serializer
     object.roles.map(&:name)
   end
 
-  def user_washes
+  def washes
     object.washes.where(hidden: false)
   end
 end
