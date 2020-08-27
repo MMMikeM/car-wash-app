@@ -36,7 +36,7 @@ class Api::V1::CustomersController < Api::V1::ApiController
 
     if user
       message = "#{ENV['PASSWORD_RESET_MESSAGE']} #{ENV['WEBSITE_URL']}/#{user.id}/password_reset"
-      ZoomConnectSmsJob.perform_async(user.contact_number, message)
+      #ZoomConnectSmsJob.perform_async(user.contact_number, message)
     end
   end
 
