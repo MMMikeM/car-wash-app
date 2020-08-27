@@ -18,7 +18,7 @@ class Api::V1::CustomersController < Api::V1::ApiController
     end
 
     if params["registration_number"]
-      @instances = model.joins(:vehicles).where("vehicles.registration_number ILIKE ?", "%#{params['registration_number']}%")
+      @instances = model.joins(:vehicles).distinct.where("vehicles.registration_number ILIKE ?", "%#{params['registration_number']}%")
     end
 
     headers['X-Instance-Total'] = instances.count
