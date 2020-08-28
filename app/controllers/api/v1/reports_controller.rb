@@ -24,7 +24,7 @@ class Api::V1::ReportsController < Api::V1::ApiController
     Wash
       .joins(:wash_type)
       .where("washes.hidden = false")
-      .where("washes.created_at >= ? AND washes.created_at <= ?", Date.parse(permitted_params[:start_date]).beginning_of_day, Date.parse(permitted_params[:end_date]).end_of_day)
+      .where("washes.created_at >= ? AND washes.created_at <= ?", permitted_params[:start_date], permitted_params[:end_date])
       .select("wash_types.id, wash_types.name, (SUM(wash_types.cost)) as total_cost, (SUM(wash_types.price)) as total_price, count(washes.*) as wash_count")
       .group("wash_types.name, wash_types.id")
   end
@@ -33,7 +33,7 @@ class Api::V1::ReportsController < Api::V1::ApiController
   def todays_washes
     user_ids = Wash
       .where("washes.hidden = false")
-      .where("washes.created_at >= ? AND washes.created_at <= ?", Date.parse(permitted_params[:start_date]).beginning_of_day, Date.parse(permitted_params[:end_date]).end_of_day)
+      .where("washes.created_at >= ? AND washes.created_at <= ?", permitted_params[:start_date], permitted_params[:end_date])
       .select(:user_id)
     User.where(id: user_ids.uniq)
   end
