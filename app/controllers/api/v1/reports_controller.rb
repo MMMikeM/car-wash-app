@@ -34,7 +34,7 @@ class Api::V1::ReportsController < Api::V1::ApiController
     user_ids = Wash
       .where("washes.hidden = false")
       .where("washes.created_at >= ? AND washes.created_at <= ?", permitted_params[:start_date], permitted_params[:end_date])
-      .select(:user_id)
+      .map(&:user_id)
     User.where(id: user_ids.uniq)
   end
 
