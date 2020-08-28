@@ -19,6 +19,6 @@ class User < ApplicationRecord
   end
 
   def send_customer_sms
-    #ZoomConnectSmsJob.perform_async(self.contact_number.dup, ENV['NEW_CUSTOMER_MESSAGE'])
+    ZoomConnectSmsJob.perform_async(self.contact_number.dup, ENV['NEW_CUSTOMER_MESSAGE'].gsub("<customer_name>", self.name))
   end
 end

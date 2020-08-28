@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       resources :system_users
       put '/system_users/:user_id/roles', to: "system_users#update_roles"
       get '/reports/washes_report', to: "reports#washes_report"
+      get '/reports/todays_washes', to: "reports#todays_washes"
     end
   end
 end
