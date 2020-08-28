@@ -1,6 +1,14 @@
 class Api::V1::ReportsController < Api::V1::ApiController
   include ActionController::MimeResponds
 
+  def todays_washes
+    respond_to do |format|
+      format.json do
+        render json: todays_washes.as_json
+      end
+    end
+  end
+
   def washes_report
     respond_to do |format|
       format.json do
@@ -16,9 +24,18 @@ class Api::V1::ReportsController < Api::V1::ApiController
     Wash
       .joins(:wash_type)
       .where("washes.hidden = false")
-      .where("washes.created_at >= ? AND washes.created_at <= ?", permitted_params[:start_date].to_date.beginning_of_day, permitted_params[:end_date].to_date.end_of_day)
+      .where("washes.created_at >= ? AND washes.created_at <= ?", Date.parse('2020-07-01').beginning_of_day, Date.parse('2020-08-30').end_of_day)
       .select("wash_types.id, wash_types.name, (SUM(wash_types.cost)) as total_cost, (SUM(wash_types.price)) as total_price, count(washes.*) as wash_count")
       .group("wash_types.name, wash_types.id")
+  end
+
+
+  def todays_washes
+    user_ids = Wash
+      .where("washes.hidden = false")
+      .where("washes.created_at >= ? AND washes.created_at <= ?", Date.today.beginning_of_day, Date.today.end_of_day)
+      .select(:user_id)
+    User.where(id: user_ids.uniq)
   end
 
 

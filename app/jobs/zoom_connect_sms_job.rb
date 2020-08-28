@@ -10,7 +10,7 @@ class ZoomConnectSmsJob
     @msisdn = msisdn
     @message = message
     @msisdn[0] = "+27"
-    puts "Sending SMS message(#{@message}) to #{@msisdn}"
+    Rails.logger.info("Sending SMS message(#{@message}) to #{@msisdn}")
     HTTParty.post(PROVIDER_URL, body: request_body.to_json, basic_auth: auth, headers: { 'Content-Type' => 'application/json' })
   end
 

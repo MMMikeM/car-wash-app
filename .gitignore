@@ -27,3 +27,4 @@
 .DS_store
 .env.development
 .env
+db.csv
