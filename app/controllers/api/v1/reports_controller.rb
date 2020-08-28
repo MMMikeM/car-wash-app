@@ -1,7 +1,7 @@
 class Api::V1::ReportsController < Api::V1::ApiController
   include ActionController::MimeResponds
 
-  def todays_washes
+  def todays_washes_report
     respond_to do |format|
       format.json do
         render json: todays_washes.as_json
