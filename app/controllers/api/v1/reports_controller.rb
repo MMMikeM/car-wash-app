@@ -4,7 +4,7 @@ class Api::V1::ReportsController < Api::V1::ApiController
   def todays_washes_report
     respond_to do |format|
       format.json do
-        render json: todays_washes.as_json
+        render json: todays_washes
       end
     end
   end
@@ -52,6 +52,19 @@ class Api::V1::ReportsController < Api::V1::ApiController
     end
   end
 
+  def start_date
+    return permitted_params[:start_date] if permitted_params[:start_date]
+
+    Date.today.to_s
+  end
+
+  def end_date
+    if permitted_params[:end_date]
+      (Date.parse(permitted_params[:end_date]) + 1.day).to_s
+    else
+      Date.tomorrow.to_s
+    end
+  end
 
   def permitted_params
     params.permit(:start_date, :end_date)
