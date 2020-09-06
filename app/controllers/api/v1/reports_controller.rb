@@ -9,6 +9,14 @@ class Api::V1::ReportsController < Api::V1::ApiController
     end
   end
 
+  def washes_daily_report
+    respond_to do |format|
+      format.json do
+        render json: washes_daily.as_json
+      end
+    end
+  end
+
   def washes_report
     respond_to do |format|
       format.json do
@@ -36,6 +44,16 @@ class Api::V1::ReportsController < Api::V1::ApiController
       .where("washes.created_at >= ? AND washes.created_at <= ?", start_date, end_date)
       .map(&:user_id)
     User.where(id: user_ids.uniq)
+  end
+
+  def washes_daily
+    Wash
+      .joins(:wash_type)
+      .where("washes.hidden = false")
+      .where("washes.created_at >= ? AND washes.created_at <= ?", start_date, end_date)
+      .select("(SUM(wash_types.cost)) as total_cost, (SUM(wash_types.price)) as total_price, count(washes.*) as wash_count, washes.created_at::date as day")
+      .group("day")
+      .order("day")
   end
 
 
