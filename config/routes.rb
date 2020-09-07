@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       end
 
       post "customers/reset_password", to: "customers#reset_password"
+      get "customers/duplicates", to: "customers#duplicates"
+      get "customers/duplicates/merge", to: "customers#merge_duplicates"
       resources :customers do
         put "update_password", to: "customers#update_password"
       end
@@ -17,7 +19,8 @@ Rails.application.routes.draw do
       resources :system_users
       put '/system_users/:user_id/roles', to: "system_users#update_roles"
       get '/reports/washes_report', to: "reports#washes_report"
-      get '/reports/todays_washes', to: "reports#todays_washes"
+      get '/reports/user_washes', to: "reports#todays_washes_report"
+      get '/reports/washes_daily', to: "reports#washes_daily_report"
     end
   end
 end

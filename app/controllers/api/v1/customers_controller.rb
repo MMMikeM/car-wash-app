@@ -47,7 +47,30 @@ class Api::V1::CustomersController < Api::V1::ApiController
           password_confirmation: params[:password_confirmation])
   end
 
+  def duplicates
+    render json: duplicates
+  end
+
+  def merge_duplicates
+    duplicates.each do |key, value|
+      user_objects = duplicates[key]
+      first = user_objects.first
+      first.update(hidden: false)
+      rest = user_objects[1..-1]
+      rest.each do |r|
+        r.update(hidden: true)
+        r.vehicles.update_all(user_id: first.id)
+        r.washes.update_all(user_id: first.id)
+        first.update(total_points: [first.total_points, r.total_points].sum)
+      end
+    end
+  end
+
   private
+
+  def duplicates
+    User.all.group_by(&:contact_number).select{|key, value| value.count > 1}
+  end
 
   def add_email_to_customer
     if !params[:email].present?
