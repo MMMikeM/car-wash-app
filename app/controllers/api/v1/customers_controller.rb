@@ -1,5 +1,5 @@
 class Api::V1::CustomersController < Api::V1::ApiController
-  skip_around_action :with_authorized_instance, only: [:create, :update_password, :reset_password]
+  skip_around_action :with_authorized_instance, only: [:create, :update_password, :reset_password, :duplicates, :merge_duplicates]
   acts_as_token_authentication_handler_for User, except: [:create, :update_password, :reset_password]
   include ActionController::MimeResponds
   before_action :add_email_to_customer, only: :create
