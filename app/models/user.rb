@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :washes
   accepts_nested_attributes_for :vehicles
 
+  validates :contact_number, uniqueness: true
+
   after_create :send_customer_sms
   after_create :add_customer_role
 
