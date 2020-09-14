@@ -1,5 +1,5 @@
 class Vehicle < ApplicationRecord
   belongs_to :user
-  validates :value, uniqueness: { scope: :user_id }
-  validates :value, presence: true
+  validates :registration_number, uniqueness: { scope: :user_id }
+  validates :registration_number, presence: true
 end
