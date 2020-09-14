@@ -79,7 +79,7 @@ class Api::V1::CustomersController < Api::V1::ApiController
   end
 
   def model
-    Role.find_by_name('customer').users.distinct
+    Role.find_by_name('customer').users.where(hidden: false).distinct
   end
 
   def customers_as_csv
