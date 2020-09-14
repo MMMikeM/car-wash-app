@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       end
 
       post "customers/reset_password", to: "customers#reset_password"
-      get "customers/duplicates", to: "customers#duplicates"
+      get "customers/duplicates", to: "customers#duplicate_customers"
       get "customers/duplicates/merge", to: "customers#merge_duplicates"
       resources :customers do
         put "update_password", to: "customers#update_password"

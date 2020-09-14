@@ -1,5 +1,5 @@
 class Api::V1::CustomersController < Api::V1::ApiController
-  skip_around_action :with_authorized_instance, only: [:create, :update_password, :reset_password, :duplicates, :merge_duplicates]
+  skip_around_action :with_authorized_instance, only: [:create, :update_password, :reset_password, :duplicate_customers, :merge_duplicates]
   acts_as_token_authentication_handler_for User, except: [:create, :update_password, :reset_password]
   include ActionController::MimeResponds
   before_action :add_email_to_customer, only: :create
@@ -47,7 +47,7 @@ class Api::V1::CustomersController < Api::V1::ApiController
           password_confirmation: params[:password_confirmation])
   end
 
-  def duplicates
+  def duplicate_customers
     render json: duplicates
   end
 
