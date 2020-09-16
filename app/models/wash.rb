@@ -4,6 +4,7 @@ class Wash < ApplicationRecord
 
   after_create :increase_user_points
   before_destroy :decrease_user_points
+  after_update :decrease_user_points
 
   def increase_user_points
     user.total_points += wash_type.points
@@ -15,12 +16,16 @@ class Wash < ApplicationRecord
   end
 
   def decrease_user_points
-    if (user.total_points - wash_type.points) >= 0
-      user.total_points -= wash_type.points
-    else
-      user.total_points = 0
-    end
+    return if hidden == false
 
-    user.save
+    if hidden == true
+      if (user.total_points - wash_type.points) >= 0
+        user.total_points -= wash_type.points
+      else
+        user.total_points = 0
+      end
+
+      user.save
+    end
   end
 end
