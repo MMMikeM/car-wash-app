@@ -14,6 +14,7 @@ class Api::V1::ReportsController < Api::V1::ApiController
       format.json do
         render json: washes_daily.as_json
       end
+      format.csv { send_data washes_daily_as_csv, filename: "washes-daily-report-#{Date.today}.csv" }
     end
   end
 
@@ -47,13 +48,8 @@ class Api::V1::ReportsController < Api::V1::ApiController
   end
 
   def washes_daily
-    Wash
-      .joins(:wash_type)
-      .where("washes.hidden = false")
-      .where("washes.created_at >= ? AND washes.created_at <= ?", start_date, end_date)
-      .select("(SUM(wash_types.cost)) as total_cost, (SUM(wash_types.price)) as total_price, count(washes.*) as wash_count, washes.created_at::date as day")
-      .group("day")
-      .order("day")
+    Wash.joins(:wash_type).where("washes.hidden = false").select("(SUM(wash_types.cost)) as total_cost, (SUM(wash_types.price)) as total_price, count(washes.*) as wash_count, washes.created_at::date as day").group("day").order("day")
+      #.where("washes.created_at >= ? AND washes.created_at <= ?", start_date, end_date)
   end
 
 
@@ -65,6 +61,19 @@ class Api::V1::ReportsController < Api::V1::ApiController
       csv << headings
 
       washes.as_json.each do |wash|
+        csv << attributes.map{ |attr| wash[attr] }
+      end
+    end
+  end
+
+  def washes_daily_as_csv
+    headings = %w{cost price wash_count day}
+    attributes = %w{total_cost total_price wash_count day}
+
+    CSV.generate(headers: true) do |csv|
+      csv << headings
+
+      washes_daily.as_json.each do |wash|
         csv << attributes.map{ |attr| wash[attr] }
       end
     end
