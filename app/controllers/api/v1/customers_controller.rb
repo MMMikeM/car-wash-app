@@ -96,7 +96,7 @@ class Api::V1::CustomersController < Api::V1::ApiController
   end
 
   def password
-    @password ||= params[:password].present? ? params[:password] : SecureRandom.uuid
+    @password ||= params[:password].present? ? params[:password] : [self.name.to_s.tr(" ", "").first(6), params[:contact_number]].join("_")
   end
 
   def permitted_params
