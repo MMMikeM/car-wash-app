@@ -19,7 +19,7 @@ class Api::V1::WashesController < Api::V1::ApiController
   end
 
   def wash_type
-    @wash_type ||= WashType.find(permitted_params[:wash_type_id])
+    WashType.find(permitted_params[:wash_type_id])
   end
 
   def permitted_params

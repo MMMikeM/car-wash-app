@@ -34,7 +34,7 @@ class Api::V1::ReportsController < Api::V1::ApiController
       .joins(:wash_type)
       .where("washes.hidden = false")
       .where("washes.created_at >= ? AND washes.created_at <= ?", start_date, end_date)
-      .select("wash_types.id, wash_types.name, (SUM(wash_types.cost)) as total_cost, (SUM(wash_types.price)) as total_price, count(washes.*) as wash_count")
+      .select("wash_types.id, wash_types.name, (SUM(washes.cost)) as total_cost, (SUM(washes.price)) as total_price, count(washes.*) as wash_count")
       .group("wash_types.name, wash_types.id")
   end
 
@@ -48,8 +48,11 @@ class Api::V1::ReportsController < Api::V1::ApiController
   end
 
   def washes_daily
-    Wash.joins(:wash_type).where("washes.hidden = false").select("(SUM(wash_types.cost)) as total_cost, (SUM(wash_types.price)) as total_price, count(washes.*) as wash_count, washes.created_at::date as day").group("day").order("day")
-      #.where("washes.created_at >= ? AND washes.created_at <= ?", start_date, end_date)
+    Wash
+      .where("washes.hidden = false")
+      .select("(SUM(washes.cost)) as total_cost, (SUM(washes.price)) as total_price, count(washes.*) as wash_count, washes.created_at::date as day")
+      .where("washes.created_at >= ? AND washes.created_at <= ?", start_date, end_date)
+      .group("day").order("day")
   end
 
 
