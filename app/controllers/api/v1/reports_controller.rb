@@ -27,6 +27,14 @@ class Api::V1::ReportsController < Api::V1::ApiController
     end
   end
 
+  def insurance_report
+    respond_to do |format|
+      format.json do
+        render json: insurances.as_json
+      end
+    end
+  end
+
   private
 
   def washes
@@ -55,6 +63,15 @@ class Api::V1::ReportsController < Api::V1::ApiController
       .group("day").order("day")
   end
 
+  def insurances
+    insurance_wash_type_id = WashType.find_by(name: "24hr Rain Insurance").id
+    user_ids = Wash
+      .where("washes.hidden = false")
+      .where("washes.created_at >= ? AND washes.created_at <= ?", start_date, end_date)
+      .where("washes.wash_type_id = ?", insurance_wash_type_id)
+      .map(&:user_id)
+    User.where(id: user_ids.uniq)
+  end
 
   def washes_as_csv
     headings = %w{wash_name total_cost total_income number_of_washes}

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       get '/reports/washes_report', to: "reports#washes_report"
       get '/reports/user_washes', to: "reports#todays_washes_report"
       get '/reports/washes_daily', to: "reports#washes_daily_report"
+      get '/reports/insurance', to: "reports#insurance_report"
     end
   end
 end
