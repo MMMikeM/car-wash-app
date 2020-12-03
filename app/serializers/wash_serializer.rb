@@ -8,4 +8,8 @@ class WashSerializer < ActiveModel::Serializer
   def user
     object.user
   end
+
+  def vehicles
+    object.user.vehicles
+  end
 end
