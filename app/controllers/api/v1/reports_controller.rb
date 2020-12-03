@@ -30,7 +30,7 @@ class Api::V1::ReportsController < Api::V1::ApiController
   def insurance_report
     respond_to do |format|
       format.json do
-        render json: insurances, serializer: WashSerializer
+        render json: insurances
       end
     end
   end
