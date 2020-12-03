@@ -65,12 +65,10 @@ class Api::V1::ReportsController < Api::V1::ApiController
 
   def insurances
     insurance_wash_type_ids = WashType.where(insurance: true).map(&:id)
-    user_ids = Wash
+    Wash
       .where(hidden: false)
       .where(wash_type_id: insurance_wash_type_ids)
       .where("washes.created_at >= ? AND washes.created_at <= ?", start_date, end_date)
-      .map(&:user_id)
-    User.where(id: user_ids.uniq)
   end
 
   def washes_as_csv
