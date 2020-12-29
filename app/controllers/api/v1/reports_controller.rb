@@ -60,8 +60,8 @@ class Api::V1::ReportsController < Api::V1::ApiController
       .joins(:wash_type)
       .joins(:user)
       .where("washes.hidden = false")
-      .where("washes.id as id", "washes.created_at >= ? AND washes.created_at <= ?", start_date, end_date)
-      .select("wash_types.name as wash_type_name, washes.cost as wash_cost, washes.price as wash_price, washes.created_at as time_of_wash, users.name as user_name, users.email as user_email, users.contact_number")
+      .where("washes.created_at >= ? AND washes.created_at <= ?", start_date, end_date)
+      .select("washes.id as id", "wash_types.name as wash_type_name, washes.cost as wash_cost, washes.price as wash_price, washes.created_at as time_of_wash, users.name as user_name, users.email as user_email, users.contact_number")
   end
 
   def todays_washes
