@@ -23,7 +23,7 @@ class Api::V1::ReportsController < Api::V1::ApiController
       format.json do
         render json: washes_detail.as_json
       end
-      format.csv { send_data washes_daily_as_csv, filename: "washes-daily-report-#{Date.today}.csv" }
+      format.csv { send_data washes_daily_as_csv, filename: "washes-detail-report.csv" }
     end
   end
 
