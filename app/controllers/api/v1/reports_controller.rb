@@ -18,6 +18,14 @@ class Api::V1::ReportsController < Api::V1::ApiController
     end
   end
 
+  def washes_daily_detail_report
+    respond_to do |format|
+      format.json do
+        render json: washes_daily_detail.as_json
+      end
+    end
+  end
+
   def washes_detail_report
     respond_to do |format|
       format.json do
@@ -41,6 +49,15 @@ class Api::V1::ReportsController < Api::V1::ApiController
       format.json do
         render json: insurances
       end
+    end
+  end
+
+  def active_users_report
+    respond_to do |format|
+      format.json do
+        render json: active_users
+      end
+      format.csv { send_data active_users_csv, filename: "active-users-#{Date.today}.csv" }
     end
   end
 
@@ -77,7 +94,22 @@ class Api::V1::ReportsController < Api::V1::ApiController
       .where("washes.hidden = false")
       .select("(SUM(washes.cost)) as total_cost, (SUM(washes.price)) as total_price, count(washes.*) as wash_count, washes.created_at::date as day")
       .where("washes.created_at >= ? AND washes.created_at <= ?", start_date, end_date)
-      .group("day").order("day")
+      .group("day")
+      .order("day")
+  end
+
+  def washes_daily_detail
+    Wash
+      .joins(:user).joins(:wash_type)
+      .select("washes.id AS id, users.email, users.name, users.contact_number, wash_types.name AS wash_type_name, washes.cost AS wash_cost, washes.price AS wash_price, washes.created_at")
+      .where("washes.hidden = false")
+      .where("washes.created_at >= ? AND washes.created_at <= ?", start_date, end_date)
+      .order("washes.created_at")
+  end
+
+  def active_users
+    User
+      .where("users.id IN (SELECT user_id FROM washes WHERE washes.created_at >= ? AND washes.created_at <= ?)", start_date, end_date)
   end
 
   def insurances
@@ -110,6 +142,19 @@ class Api::V1::ReportsController < Api::V1::ApiController
 
       washes_daily.as_json.each do |wash|
         csv << attributes.map{ |attr| wash[attr] }
+      end
+    end
+  end
+
+  def active_users_as_csv
+    headings = %w{name email contact_number}
+    attributes = %w{name email contact_number}
+
+    CSV.generate(headers: true) do |csv|
+      csv << headings
+
+      active_users.as_json.each do |user|
+        csv << attributes.map{ |attr| user[attr] }
       end
     end
   end
