@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       get '/reports/washes_daily_detail', to: "reports#washes_daily_detail_report"
       get '/reports/washes_detail', to: "reports#washes_detail_report"
       get '/reports/insurance', to: "reports#insurance_report"
-      get '/reports/active_users', to: "reports#active_users"
+      get '/reports/active_users', to: "reports#active_users_report"
     end
   end
 end
