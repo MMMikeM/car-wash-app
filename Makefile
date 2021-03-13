@@ -1,6 +1,7 @@
 setup: build bundle db-setup
 
 build:
+	touch .env
 	docker-compose build
 
 bundle:

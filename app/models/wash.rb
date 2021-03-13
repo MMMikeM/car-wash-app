@@ -10,6 +10,8 @@ class Wash < ApplicationRecord
     user.total_points += wash_type.points
     user.save
 
+    return if Rails.env.development?
+
     if user.total_points >= ENV['SMS_POINTS_NOTIFY'].to_i
       ZoomConnectSmsJob.perform_async(user.contact_number.dup, ENV['SMS_POINTS_MESSAGE'].gsub("<customer_name>", user.name))
     end
