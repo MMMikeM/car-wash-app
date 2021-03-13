@@ -57,7 +57,7 @@ class Api::V1::ReportsController < Api::V1::ApiController
       format.json do
         render json: active_users
       end
-      format.csv { send_data active_users_csv, filename: "active-users-#{Date.today}.csv" }
+      format.csv { send_data active_users_as_csv, filename: "active-users-#{Date.today}.csv" }
     end
   end
 
