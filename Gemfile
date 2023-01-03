@@ -13,7 +13,7 @@ gem 'active_model_serializers', '~> 0.10.10'
 gem 'pundit'
 gem 'rack-cors'
 gem 'simple_token_authentication', '~> 1.0'
-gem 'httparty', '~> 0.18.1'
+gem 'httparty', '~> 0.21.0'
 gem 'sucker_punch', '~> 2.0'
 
 group :development, :test do
