@@ -7,6 +7,8 @@ class Wash < ApplicationRecord
   after_update :decrease_user_points
 
   def increase_user_points
+    return unless user.loyalty_enabled
+
     user.total_points += wash_type.points
     user.save
 
