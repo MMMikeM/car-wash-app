@@ -1,6 +1,6 @@
 FROM ruby:2.7.1-alpine AS dev
 
-RUN apk add postgresql-dev tzdata build-base
+RUN apk add postgresql-dev tzdata build-base shared-mime-info
 
 ENV BUNDLE_PATH=/bundle \
     BUNDLE_BIN=/bundle/bin \
@@ -12,7 +12,7 @@ RUN mkdir -p $INSTALL_PATH
 
 WORKDIR $INSTALL_PATH
 
-RUN gem install bundler
+RUN gem install bundler -v 2.4.22
 
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
